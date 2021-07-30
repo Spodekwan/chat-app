@@ -22,9 +22,15 @@ const ChatRoom = (props) => {
     onValue(messagesRef, (snapshot) => {
       const data = snapshot.val();
       const newDataArray = [];
-      for (let message in data) {
-        if (roomId === data[message].room) {
-          newDataArray.push(data[message])
+      for (let key in data) {
+        if (roomId === data[key].room) {
+          newDataArray.push({
+            key,
+            room: data[key].room,
+            content: data[key].content,
+            sentBy: data[key].sentBy,
+            timestamp: data[key].timestamp,
+          })
         }
       }
       console.log(newDataArray);
@@ -42,7 +48,7 @@ const ChatRoom = (props) => {
             {
               messages
               ? messages.map((message) => {
-                  return <p key={message}>{`${message.timestamp} - ${message.sentBy}: ${message.content}`}</p>
+                  return <p key={message.key}>{`${message.timestamp} - ${message.sentBy}: ${message.content}`}</p>
                 })
               : null
             }
