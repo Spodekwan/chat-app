@@ -16,6 +16,7 @@
 - preset chat rooms
 - create new chat rooms
 - update different picture
+- group messages by timestamp period
 
 ## Views
 
@@ -36,19 +37,20 @@
 - single component
 - sub-components
 - database:
-    - key
-    - room name
+  - key
+  - room name
 
 ### Database Structure
+
 - Rooms
-    - room key
-        - room name
-        - room description
+
+  - room key
+    - room name
+    - room description
 
 - Messages
-    - message key
-        - room key
-        - sent by (user ID)
-        - message content
-        - timestamp
-
+  - message key
+    - room key
+    - sent by (user ID)
+    - message content
+    - timestamp

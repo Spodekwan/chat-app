@@ -16,8 +16,8 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={LogIn}/>
-          <Route path="/rooms" component={RoomList}/>
-          <Route path="/room/:roomId" component={ChatRoom}/>
+          <Route exact path="/rooms" component={RoomList}/>
+          <Route path="/rooms/:roomId" component={ChatRoom}/>
         </Switch>
       </Router>
     </>
