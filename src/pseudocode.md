@@ -2,7 +2,7 @@
 
 ## MVP
 
-- authentication
+- authentication ✅
 - send messages
 - receive messages
 - display name for each user
@@ -35,3 +35,20 @@
 
 - single component
 - sub-components
+- database:
+    - key
+    - room name
+
+### Database Structure
+- Rooms
+    - room key
+        - room name
+        - room description
+
+- Messages
+    - message key
+        - room key
+        - sent by (user ID)
+        - message content
+        - timestamp
+

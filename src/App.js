@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from'react-router-dom';
 import LogIn from './components/LogIn';
 import RoomList from './components/RoomList';
+import ChatRoom from './components/ChatRoom';
 
 const Heading = styled.h1`
   color: red;
@@ -16,7 +17,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={LogIn}/>
           <Route path="/rooms" component={RoomList}/>
-          {/* <Route path="/chatroom"/> */}
+          <Route path="/room/:roomId" component={ChatRoom}/>
         </Switch>
       </Router>
     </>
