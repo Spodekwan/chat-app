@@ -1,5 +1,6 @@
 import firebaseApp from '../config/firebase';
 import { GoogleAuthProvider, getAuth, signInWithRedirect, getRedirectResult } from 'firebase/auth';
+import { getDatabase, ref, child, get, set } from 'firebase/database';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useAuth } from '../context/authContext';
@@ -30,8 +31,21 @@ const LogIn = () => {
 
         // The signed-in user info.
         setUser(result.user);
-        history.push('/rooms');
 
+        const db = getDatabase();
+        const usersRef = ref(db, 'Users');
+        get(child(usersRef, `${result.user.uid}`))
+          .then(snapshot => {
+            if (!snapshot.exists()) {
+              set(child(usersRef, `${result.user.uid}`), {
+                displayName: result.user.displayName,
+                photoURL: result.user.photoURL,
+              })
+            }
+          })
+
+        // send to rooms page
+        history.push('/rooms');
       }).catch((error) => {
         // Handle Errors here.
         // const errorCode = error.code;

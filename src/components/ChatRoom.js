@@ -1,11 +1,30 @@
 import { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { useAuth } from '../context/authContext';
+import { formatDate } from '../utilities/utils';
 
 const ChatRoom = (props) => {
   const { match: { params: { roomId } } } = props;
 
+  const { user } = useAuth();
   const [ room, setRoom ] = useState();
   const [ messages, setMessages ] = useState();
+  const [ newMessage, setNewMessage ] = useState('');
+
+  const handleNewMessage = (event) => {
+    event.preventDefault();
+
+    const db = getDatabase();
+    const messagesRef = ref(db, `Messages`);
+    const date = new Date();
+    push(messagesRef, {
+      content: newMessage,
+      sentBy: user.uid,
+      room: roomId,
+      timestamp: formatDate(date),
+    })
+    console.log(user);
+  }
   
   useEffect(() => {
     const db = getDatabase();
@@ -52,10 +71,14 @@ const ChatRoom = (props) => {
                 })
               : null
             }
-            
+            <form action="submit" onSubmit={(event) => handleNewMessage(event)}>
+              <input type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} />
+              <button type="submit">Send</button>
+            </form>
           </>
         : null
       }
+
     </>
   )
 };
