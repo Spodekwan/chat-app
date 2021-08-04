@@ -27,10 +27,10 @@ const LogIn = () => {
         // This gives you a Google Access Token. You can use it to access Google APIs.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
-        console.log(result);
+        console.log('setting user', result);
 
         // The signed-in user info.
-        setUser(result.user);
+        // setUser(result.user);
 
         const db = getDatabase();
         const usersRef = ref(db, 'Users');

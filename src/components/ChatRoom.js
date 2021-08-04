@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { getDatabase, ref, onValue, push, get, child } from 'firebase/database';
 import { useAuth } from '../context/authContext';
 import { formatDate } from '../utilities/utils';
 
@@ -22,7 +22,8 @@ const ChatRoom = (props) => {
       sentBy: user.uid,
       room: roomId,
       timestamp: formatDate(date),
-    })
+    });
+    setNewMessage('');
     console.log(user);
   }
   
