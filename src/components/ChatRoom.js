@@ -39,22 +39,46 @@ const ChatRoom = (props) => {
   useEffect(() => {
     const db = getDatabase();
     const messagesRef = ref(db, `Messages`);
-    onValue(messagesRef, (snapshot) => {
+    const usersRef = ref(db, `Users`);
+    const formatMessages = async (snapshot) => {
       const data = snapshot.val();
       const newDataArray = [];
       for (let key in data) {
         if (roomId === data[key].room) {
-          newDataArray.push({
-            key,
-            room: data[key].room,
-            content: data[key].content,
-            sentBy: data[key].sentBy,
-            timestamp: data[key].timestamp,
-          })
+          // using senyBy id to get the displayName of the user who sent message
+          await get(child(usersRef, `${data[key].sentBy}`))
+            .then(snapshot => {
+              if (snapshot.exists()) {
+                const thisUser = snapshot.val();
+                data[key].sentBy = thisUser.displayName;
+              }
+              newDataArray.push({
+                key,
+                room: data[key].room,
+                content: data[key].content,
+                sentBy: data[key].sentBy,
+                timestamp: data[key].timestamp,
+              })
+            })
+            .catch(error => {
+              newDataArray.push({
+                key,
+                room: data[key].room,
+                content: data[key].content,
+                sentBy: data[key].sentBy,
+                timestamp: data[key].timestamp,
+              })
+            })
         }
       }
-      console.log(newDataArray);
+      // console.log(newDataArray);
       setMessages(newDataArray);
+    }
+
+    onValue(messagesRef, (snapshot) => {
+      if (snapshot.exists()) {
+        formatMessages(snapshot);
+      }
     });
   }, [roomId])
 

@@ -3,11 +3,11 @@
 ## MVP
 
 - authentication ✅
-- send messages
+- send messages ✅
 - receive messages
-- display name for each user
+- display name for each user ✅
 - add photo for each user
-- chat room
+- chat room ✅
 
 ## Stretch goals:
 
@@ -17,6 +17,7 @@
 - create new chat rooms
 - update different picture
 - group messages by timestamp period
+- put google auth into own site instead of redirect
 
 ## Views
 
