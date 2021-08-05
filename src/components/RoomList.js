@@ -1,11 +1,17 @@
 import { useAuth } from '../context/authContext';
 import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const RoomList = () => {
-  const { user } = useAuth();
+  const { user, handleSignOut } = useAuth();
   const [ rooms, setRooms ] = useState([]);
+  const history = useHistory();
+
+  const handleClick = async () => {
+    await handleSignOut();
+    history.push("/");
+  }
 
   useEffect(() => {
     const db = getDatabase();
@@ -27,6 +33,7 @@ const RoomList = () => {
 
   return (
     <>
+      <button onClick={handleClick}>Sign Out</button>
       <p>Sup {user.displayName} here's the room list:</p>
       <ul>
         {
