@@ -3,9 +3,17 @@ export const formatDate = (date) => {
     const month = formatMonth(date.getMonth());
     const day = date.getDate();
     const hour = formatHour(date.getHours());
-    const minutes = date.getMinutes();
+    const minutes = formatMinutes(date.getMinutes());
 
     return `${month} ${day} AT ${hour.hour}:${minutes} ${hour.ampm}`
+}
+
+const formatMinutes = (minute) => {
+  if (minute < 10) {
+    return `0${minute}`
+  } else {
+    return minute
+  }
 }
 
 const formatHour = (hour) => {

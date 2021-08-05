@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, push, get, child } from 'firebase/database';
 import { useAuth } from '../context/authContext';
 import { formatDate } from '../utilities/utils';
+import { Link } from 'react-router-dom';
 
 const ChatRoom = (props) => {
   const { match: { params: { roomId } } } = props;
@@ -45,18 +46,20 @@ const ChatRoom = (props) => {
       const newDataArray = [];
       for (let key in data) {
         if (roomId === data[key].room) {
-          // using senyBy id to get the displayName of the user who sent message
+          // using sentBy id to get the displayName of the user who sent message
           await get(child(usersRef, `${data[key].sentBy}`))
-            .then(snapshot => {
+            .then((snapshot) => {
               if (snapshot.exists()) {
                 const thisUser = snapshot.val();
                 data[key].sentBy = thisUser.displayName;
+                data[key].sentByPhoto = thisUser.photoURL;
               }
               newDataArray.push({
                 key,
                 room: data[key].room,
                 content: data[key].content,
                 sentBy: data[key].sentBy,
+                sentByPhoto: data[key].sentByPhoto,
                 timestamp: data[key].timestamp,
               })
             })
@@ -66,6 +69,7 @@ const ChatRoom = (props) => {
                 room: data[key].room,
                 content: data[key].content,
                 sentBy: data[key].sentBy,
+                sentByPhoto: null,
                 timestamp: data[key].timestamp,
               })
             })
@@ -87,12 +91,20 @@ const ChatRoom = (props) => {
       {
         room
         ? <>
+            <Link to="/rooms">Back</Link>
             <h2>{room.name}</h2>
             <h3>{room.description}</h3>
             {
               messages
               ? messages.map((message) => {
-                  return <p key={message.key}>{`${message.timestamp} - ${message.sentBy}: ${message.content}`}</p>
+                  return (
+                    <div key={message.key}>
+                      <div>
+                        <img src={message.sentByPhoto} alt={`${message.sentBy}`}/>
+                      </div>
+                      <p>{`${message.timestamp} - ${message.sentBy}: ${message.content}`}</p>
+                    </div>
+                  )
                 })
               : null
             }
