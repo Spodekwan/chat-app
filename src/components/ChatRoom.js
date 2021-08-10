@@ -55,6 +55,7 @@ const MessagesContainer = styled.div`
   padding-top: 10px;
   position: absolute;
   top: 88px;
+  width: 100%;
 `;
 
 const MessageForm = styled.form`

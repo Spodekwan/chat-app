@@ -1,5 +1,11 @@
 # Pseudocode
 
+## To Do
+
+- fix message form when browser notification comes up at bottom of screen
+- fix width of messages container
+- go to bottom of messages automatically
+
 ## MVP
 
 - authentication ✅
