@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useHistory } from 'react-router';
+import Heading from './Heading';
 
 const Login = styled.button`
   cursor: pointer;
@@ -62,6 +63,7 @@ const LogIn = () => {
 
   return (
     <>
+      <Heading />
       <p>Hello</p>
       <Login onClick={handleLogin}>Log In!</Login>
     </>

@@ -19,6 +19,7 @@
 - group messages by timestamp period
 - put google auth into own site instead of redirect
 - change display name
+- change theme colors
 
 ## Views
 

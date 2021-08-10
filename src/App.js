@@ -6,17 +6,17 @@ import RoomList from './components/RoomList';
 import ChatRoom from './components/ChatRoom';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './context/authContext';
+import { colors, Wrapper } from './styles/variables';
 
-const Heading = styled.h1`
-  color: red;
-`;
+const { primary } = colors;
+
+
 
 function App() {
   const { user } = useAuth();
 
   return (
     <>
-      <Heading>Chat App</Heading>
       <Router>
         <Switch>
           <Route exact path="/" component={LogIn}/>

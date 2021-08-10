@@ -3,6 +3,72 @@ import { getDatabase, ref, onValue, push, get, child } from 'firebase/database';
 import { useAuth } from '../context/authContext';
 import { formatDate } from '../utilities/utils';
 import { Link } from 'react-router-dom';
+import { colors, Wrapper } from '../styles/variables';
+import styled from 'styled-components';
+
+const { primary, secondary } = colors;
+
+const RoomHeaderContainer = styled.div`
+  background-color: ${primary};
+  height: 88px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+`;
+
+const RoomHeader = styled.header`
+  color: ${secondary};
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+`;
+
+const TitleContainer = styled.div`
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+`;
+
+const Title = styled.h2`
+  margin: 0;
+  text-transform: uppercase;
+`;
+
+const BackButton = styled(Link)`
+  color: ${secondary};
+  padding-right: 10px;
+  text-decoration: none;
+`;
+
+const DescriptionContainer = styled.div`
+  margin-bottom: 5px;
+`;
+
+const Description = styled.h3`
+  margin: 0;
+`;
+
+const MessagesContainer = styled.div`
+  height: calc(100vh - 88px - 25px);
+  overflow: scroll;
+  padding-top: 10px;
+  position: absolute;
+  top: 88px;
+`;
+
+const MessageForm = styled.form`
+  bottom: 0;
+  display: flex;
+  height: 25px;
+  left: 0;
+  position: fixed;
+  width: 100%;
+`;
+
+const MessageInput = styled.input`
+  flex: 1;
+`;
 
 const ChatRoom = (props) => {
   const { match: { params: { roomId } } } = props;
@@ -91,27 +157,42 @@ const ChatRoom = (props) => {
       {
         room
         ? <>
-            <Link to="/rooms">Back</Link>
-            <h2>{room.name}</h2>
-            <h3>{room.description}</h3>
-            {
-              messages
-              ? messages.map((message) => {
-                  return (
-                    <div key={message.key}>
-                      <div>
-                        <img src={message.sentByPhoto} alt={`${message.sentBy}`}/>
-                      </div>
-                      <p>{`${message.timestamp} - ${message.sentBy}: ${message.content}`}</p>
-                    </div>
-                  )
-                })
-              : null
-            }
-            <form action="submit" onSubmit={(event) => handleNewMessage(event)}>
-              <input type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} />
+            <RoomHeaderContainer>
+              <Wrapper>
+                <RoomHeader>
+                  <TitleContainer>
+                    <BackButton to="/rooms">Back</BackButton>
+                    <Title>{room.name}</Title>
+                  </TitleContainer>
+                  <DescriptionContainer>
+                    <Description>{room.description}</Description>
+                  </DescriptionContainer>
+                </RoomHeader>
+              </Wrapper>
+            </RoomHeaderContainer>
+            
+            <Wrapper>
+              <MessagesContainer>
+                {
+                  messages
+                  ? messages.map((message) => {
+                      return (
+                        <div key={message.key}>
+                          <div>
+                            <img src={message.sentByPhoto} alt={`${message.sentBy}`}/>
+                          </div>
+                          <p>{`${message.sentBy}: ${message.content}`}</p>
+                        </div>
+                      )
+                    })
+                  : null
+                }
+              </MessagesContainer>  
+            </Wrapper>
+            <MessageForm action="submit" onSubmit={(event) => handleNewMessage(event)}>
+              <MessageInput type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} />
               <button type="submit">Send</button>
-            </form>
+            </MessageForm>
           </>
         : null
       }

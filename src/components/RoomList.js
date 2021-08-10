@@ -1,7 +1,8 @@
 import { useAuth } from '../context/authContext';
 import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom';
+import Heading from './Heading';
 
 const RoomList = () => {
   const { user, handleSignOut } = useAuth();
@@ -33,6 +34,7 @@ const RoomList = () => {
 
   return (
     <>
+      <Heading />
       <button onClick={handleClick}>Sign Out</button>
       <p>Sup {user.displayName} here's the room list:</p>
       <ul>
