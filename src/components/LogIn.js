@@ -14,7 +14,7 @@ const LogIn = () => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
 
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
   const history = useHistory();
 
   const handleLogin = () => {
@@ -27,7 +27,7 @@ const LogIn = () => {
         // This gives you a Google Access Token. You can use it to access Google APIs.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
-        console.log('setting user', result);
+        console.log('setting user', result, user);
 
         // The signed-in user info.
         // setUser(result.user);
@@ -43,9 +43,11 @@ const LogIn = () => {
               })
             }
           })
-
+        
         // send to rooms page
-        history.push('/rooms');
+        if (user) {
+          history.push('/rooms');
+        }
       }).catch((error) => {
         // Handle Errors here.
         // const errorCode = error.code;
