@@ -5,6 +5,7 @@ import { formatDate } from '../utilities/utils';
 import { Link } from 'react-router-dom';
 import { colors, Wrapper } from '../styles/variables';
 import styled from 'styled-components';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 const { primary, secondary } = colors;
 
@@ -49,8 +50,8 @@ const Description = styled.h3`
   margin: 0;
 `;
 
-const MessagesContainer = styled.div`
-  height: calc(100vh - 88px - 25px);
+const ChatContainer = styled(ScrollToBottom)`
+  height: calc(100vh - 88px - 25px - 25px);
   overflow: scroll;
   padding-top: 10px;
   position: absolute;
@@ -58,17 +59,55 @@ const MessagesContainer = styled.div`
   width: 100%;
 `;
 
-const MessageForm = styled.form`
-  bottom: 0;
+const MessageContainer = styled.div`
   display: flex;
+  align-items: center;
+  width: 90%;
+  margin: 10px 0;
+`;
+
+const UserImageContainer = styled.div`
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin-right: 40px;
+  border-radius: 20px;
+`;
+
+const UserImage = styled.img`
+  width: 100%;
+  display: block;
+`;
+
+const MessageForm = styled.form`
+  bottom: 25px;
   height: 25px;
   left: 0;
   position: fixed;
   width: 100%;
 `;
 
+const MessageFormContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
 const MessageInput = styled.input`
   flex: 1;
+  cursor: text;
+`;
+
+const RelativeWrapper = styled(Wrapper)`
+  position: relative;
+`;
+
+const RoomFooter = styled.div`
+  background-color: ${primary};
+  height: 25px;
+  left: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 `;
 
 const ChatRoom = (props) => {
@@ -172,28 +211,33 @@ const ChatRoom = (props) => {
               </Wrapper>
             </RoomHeaderContainer>
             
-            <Wrapper>
-              <MessagesContainer>
+            <RelativeWrapper>
+              <ChatContainer>
                 {
                   messages
                   ? messages.map((message) => {
                       return (
-                        <div key={message.key}>
-                          <div>
-                            <img src={message.sentByPhoto} alt={`${message.sentBy}`}/>
-                          </div>
+                        <MessageContainer key={message.key}>
+                          <UserImageContainer>
+                            <UserImage src={message.sentByPhoto} alt={`${message.sentBy}`}/>
+                          </UserImageContainer>
                           <p>{`${message.sentBy}: ${message.content}`}</p>
-                        </div>
+                        </MessageContainer>
                       )
                     })
                   : null
                 }
-              </MessagesContainer>  
-            </Wrapper>
+              </ChatContainer>  
+            </RelativeWrapper>
             <MessageForm action="submit" onSubmit={(event) => handleNewMessage(event)}>
-              <MessageInput type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} />
-              <button type="submit">Send</button>
+              <Wrapper>
+                <MessageFormContainer>
+                  <MessageInput type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} />
+                  <button type="submit">Send</button>
+                </MessageFormContainer>
+              </Wrapper>
             </MessageForm>
+            <RoomFooter />
           </>
         : null
       }
