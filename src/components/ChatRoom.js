@@ -87,6 +87,8 @@ const CurrentUserImageContainer = styled(UserImageContainer)`
   margin-left: 40px;
 `;
 
+// here is a change
+
 const UserImage = styled.img`
   width: 100%;
   display: block;
