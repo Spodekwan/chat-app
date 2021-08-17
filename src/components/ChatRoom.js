@@ -7,7 +7,7 @@ import { colors, Wrapper } from '../styles/variables';
 import styled from 'styled-components';
 import ScrollToBottom from 'react-scroll-to-bottom';
 
-const { primary, secondary } = colors;
+const { primary, secondary, black } = colors;
 
 const RoomHeaderContainer = styled.div`
   background-color: ${primary};
@@ -77,17 +77,15 @@ const UserImageContainer = styled.div`
   width: 40px;
   height: 40px;
   overflow: hidden;
-  margin-right: 40px;
+  margin-right: 20px;
   border-radius: 20px;
   flex-shrink: 0;
 `;
 
 const CurrentUserImageContainer = styled(UserImageContainer)`
   margin-right: 0;
-  margin-left: 40px;
+  margin-left: 20px;
 `;
-
-// here is a change
 
 const UserImage = styled.img`
   width: 100%;
@@ -96,6 +94,14 @@ const UserImage = styled.img`
 
 const MessageContent = styled.p`
   max-width: 60%;
+  background: ${black};
+  color: ${secondary};
+  border-radius: 10px;
+  padding: 10px;
+`;
+
+const CurrentUserMessageContent = styled(MessageContent)`
+  background: ${primary};
 `;
 
 const MessageForm = styled.form`
@@ -244,7 +250,7 @@ const ChatRoom = (props) => {
                             <CurrentUserImageContainer>
                               <UserImage src={message.sentByPhoto} alt={`${message.sentByName}`}/>
                             </CurrentUserImageContainer>
-                            <MessageContent>{message.content}</MessageContent>
+                            <CurrentUserMessageContent>{message.content}</CurrentUserMessageContent>
                           </CurrentUserMessageContainer>
                         )
                       } else {
@@ -266,7 +272,7 @@ const ChatRoom = (props) => {
             <MessageForm action="submit" onSubmit={(event) => handleNewMessage(event)}>
               <Wrapper>
                 <MessageFormContainer>
-                  <MessageInput type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} />
+                  <MessageInput type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} required/>
                   <button type="submit">Send</button>
                 </MessageFormContainer>
               </Wrapper>
