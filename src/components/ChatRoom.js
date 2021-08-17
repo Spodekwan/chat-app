@@ -55,15 +55,22 @@ const ChatContainer = styled(ScrollToBottom)`
   overflow: scroll;
   padding-top: 10px;
   position: absolute;
-  top: 88px;
   width: 100%;
 `;
 
 const MessageContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 90%;
+  width: 95%;
+  padding-right: 10%;
   margin: 10px 0;
+`;
+
+const CurrentUserMessageContainer = styled(MessageContainer)`
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  padding-left: 10%;
+  padding-right: 0;
 `;
 
 const UserImageContainer = styled.div`
@@ -72,11 +79,21 @@ const UserImageContainer = styled.div`
   overflow: hidden;
   margin-right: 40px;
   border-radius: 20px;
+  flex-shrink: 0;
+`;
+
+const CurrentUserImageContainer = styled(UserImageContainer)`
+  margin-right: 0;
+  margin-left: 40px;
 `;
 
 const UserImage = styled.img`
   width: 100%;
   display: block;
+`;
+
+const MessageContent = styled.p`
+  max-width: 60%;
 `;
 
 const MessageForm = styled.form`
@@ -98,6 +115,7 @@ const MessageInput = styled.input`
 `;
 
 const RelativeWrapper = styled(Wrapper)`
+  margin-top: 88px;
   position: relative;
 `;
 
@@ -157,7 +175,7 @@ const ChatRoom = (props) => {
             .then((snapshot) => {
               if (snapshot.exists()) {
                 const thisUser = snapshot.val();
-                data[key].sentBy = thisUser.displayName;
+                data[key].sentByName = thisUser.displayName;
                 data[key].sentByPhoto = thisUser.photoURL;
               }
               newDataArray.push({
@@ -165,6 +183,7 @@ const ChatRoom = (props) => {
                 room: data[key].room,
                 content: data[key].content,
                 sentBy: data[key].sentBy,
+                sentByName: data[key].sentByName,
                 sentByPhoto: data[key].sentByPhoto,
                 timestamp: data[key].timestamp,
               })
@@ -216,14 +235,27 @@ const ChatRoom = (props) => {
                 {
                   messages
                   ? messages.map((message) => {
-                      return (
-                        <MessageContainer key={message.key}>
-                          <UserImageContainer>
-                            <UserImage src={message.sentByPhoto} alt={`${message.sentBy}`}/>
-                          </UserImageContainer>
-                          <p>{`${message.sentBy}: ${message.content}`}</p>
-                        </MessageContainer>
-                      )
+                      console.log(message.sentBy, user.uid);
+                      if (message.sentBy === user.uid) {
+                        return (
+                          <CurrentUserMessageContainer key={message.key}>
+                            <CurrentUserImageContainer>
+                              <UserImage src={message.sentByPhoto} alt={`${message.sentByName}`}/>
+                            </CurrentUserImageContainer>
+                            <MessageContent>{message.content}</MessageContent>
+                          </CurrentUserMessageContainer>
+                        )
+                      } else {
+                        return (
+                          <MessageContainer key={message.key}>
+                            <UserImageContainer>
+                              <UserImage src={message.sentByPhoto} alt={`${message.sentByName}`}/>
+                            </UserImageContainer>
+                            <MessageContent>{`${message.sentByName}: ${message.content}`}</MessageContent>
+                          </MessageContainer>
+                        )
+                      }
+                      
                     })
                   : null
                 }

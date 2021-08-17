@@ -2,9 +2,8 @@
 
 ## To Do
 
-- fix message form when browser notification comes up at bottom of screen
-- fix width of messages container
-- go to bottom of messages automatically
+- styling on room list and chat room
+- own messages are on right of screen
 
 ## MVP
 
