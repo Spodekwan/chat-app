@@ -60,10 +60,10 @@ const ChatContainer = styled(ScrollToBottom)`
 
 const MessageContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   width: 95%;
   padding-right: 10%;
-  margin: 10px 0;
+  margin: 10px auto;
 `;
 
 const CurrentUserMessageContainer = styled(MessageContainer)`
@@ -77,14 +77,14 @@ const UserImageContainer = styled.div`
   width: 40px;
   height: 40px;
   overflow: hidden;
-  margin-right: 20px;
+  margin-right: 12px;
   border-radius: 20px;
   flex-shrink: 0;
 `;
 
 const CurrentUserImageContainer = styled(UserImageContainer)`
   margin-right: 0;
-  margin-left: 20px;
+  margin-left: 12px;
 `;
 
 const UserImage = styled.img`
@@ -92,16 +92,33 @@ const UserImage = styled.img`
   display: block;
 `;
 
-const MessageContent = styled.p`
-  max-width: 60%;
+const MessageText = styled.p`
   background: ${black};
   color: ${secondary};
-  border-radius: 10px;
+  border-radius: 10px 10px 10px 0;
   padding: 10px;
+  margin-bottom: 10px;
 `;
 
-const CurrentUserMessageContent = styled(MessageContent)`
+const CurrentUserMessageText = styled(MessageText)`
   background: ${primary};
+  border-radius: 10px 10px 2px 10px;
+`;
+
+const MessageAuthor = styled.p`
+  color: gray;
+  line-height: 0;
+  font-size: 14px;
+  margin-top: 0;
+`;
+
+const CurrentUserMessageAuthor = styled(MessageAuthor)`
+  color: transparent;
+  width: 0;
+`;
+
+const MessageContent = styled.div`
+  max-width: 60%;
 `;
 
 const MessageForm = styled.form`
@@ -125,6 +142,8 @@ const MessageInput = styled.input`
 const RelativeWrapper = styled(Wrapper)`
   margin-top: 88px;
   position: relative;
+  width: 100%;
+  max-width: 100%;
 `;
 
 const RoomFooter = styled.div`
@@ -250,7 +269,10 @@ const ChatRoom = (props) => {
                             <CurrentUserImageContainer>
                               <UserImage src={message.sentByPhoto} alt={`${message.sentByName}`}/>
                             </CurrentUserImageContainer>
-                            <CurrentUserMessageContent>{message.content}</CurrentUserMessageContent>
+                            <MessageContent>
+                              <CurrentUserMessageText>{message.content}</CurrentUserMessageText>
+                              <CurrentUserMessageAuthor>{`${message.sentByName}`}</CurrentUserMessageAuthor>
+                            </MessageContent>
                           </CurrentUserMessageContainer>
                         )
                       } else {
@@ -259,7 +281,10 @@ const ChatRoom = (props) => {
                             <UserImageContainer>
                               <UserImage src={message.sentByPhoto} alt={`${message.sentByName}`}/>
                             </UserImageContainer>
-                            <MessageContent>{`${message.sentByName}: ${message.content}`}</MessageContent>
+                            <MessageContent>
+                              <MessageText>{`${message.content}`}</MessageText>
+                              <MessageAuthor>{`${message.sentByName}`}</MessageAuthor>
+                            </MessageContent>
                           </MessageContainer>
                         )
                       }
