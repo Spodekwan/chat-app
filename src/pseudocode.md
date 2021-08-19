@@ -3,7 +3,13 @@
 ## To Do
 
 - styling on room list and chat room
-- own messages are on right of screen
+- room list 
+  - different sorting options for the list
+  - some info about each room
+    - total number of messages
+    - most recent message timestamp
+    - room description/topic
+  - functionality for creating new rooms
 
 ## MVP
 

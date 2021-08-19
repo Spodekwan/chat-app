@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, push, get, child } from 'firebase/database';
+import { getDatabase, ref, onValue, push, get, child, update } from 'firebase/database';
 import { useAuth } from '../context/authContext';
 import { formatDate } from '../utilities/utils';
 import { Link } from 'react-router-dom';
@@ -176,7 +176,12 @@ const ChatRoom = (props) => {
       timestamp: formatDate(date),
     });
     setNewMessage('');
-    console.log(user);
+
+    const roomRef = ref(db, `Rooms/${roomId}`);
+    update(roomRef, {
+      totalMessages: (messages.length + 1),
+      latestMessage: formatDate(date),
+    });
   }
   
   useEffect(() => {

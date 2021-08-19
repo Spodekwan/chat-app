@@ -26,6 +26,8 @@ const RoomList = () => {
           key,
           name: data[key].name,
           description: data[key].description,
+          totalMessages: data[key].totalMessages,
+          latestMessage: data[key].latestMessage,
         })
       }
       setRooms(newDataArray);
@@ -43,6 +45,9 @@ const RoomList = () => {
             return (
               <li key={room.key}>
                 <Link to={`rooms/${room.key}`}>{room.name}</Link>
+                <p>{room.description}</p>
+                <p>total messages: {room.totalMessages ? room.totalMessages : 0}</p>
+                <p>latest message: {room.latestMessage ? room.latestMessage : 'no messages yet'}</p>
               </li>
             )
           })
