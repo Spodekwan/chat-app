@@ -7,7 +7,7 @@ import { colors, Wrapper } from '../styles/variables';
 import styled from 'styled-components';
 import ScrollToBottom from 'react-scroll-to-bottom';
 
-const { primary, secondary, black } = colors;
+const { primary, secondary, black, background } = colors;
 
 const RoomHeaderContainer = styled.div`
   background-color: ${primary};
@@ -53,9 +53,11 @@ const Description = styled.h3`
 const ChatContainer = styled(ScrollToBottom)`
   height: calc(100vh - 88px - 25px - 25px);
   overflow: scroll;
-  padding-top: 10px;
   position: absolute;
   width: 100%;
+  background: ${background};
+  scrollbar-color: grey transparent;
+  scrollbar-width: none;
 `;
 
 const MessageContainer = styled.div`

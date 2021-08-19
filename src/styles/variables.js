@@ -5,6 +5,7 @@ export const colors = {
   secondary: `#faebd7`,
   primary: `#39397e`,
   black: `#232323`,
+  background: `rgba(57, 57, 126, 0.3)`
 }
 
 export const Wrapper = styled.div`
