@@ -8,7 +8,7 @@ const { primary, secondary } = colors;
 const Header = styled.header`
   background: ${primary};
   padding: 10px 0;
-  height: 80px;
+  height: 88px;
 `;
 
 const FlexWrapper = styled(Wrapper)`

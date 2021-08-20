@@ -11,7 +11,7 @@ const { primary, secondary, black, background } = colors;
 const Body = styled.body`
   background: ${background};
   padding-top: 10px;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 88px);
 `;
 
 const RoomsContainer = styled.ul`
