@@ -3,7 +3,7 @@ import { Wrapper, colors } from '../styles/variables';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 
-const { primary, secondary } = colors;
+const { primary, secondary, black } = colors;
 
 const Header = styled.header`
   background: ${primary};
@@ -18,11 +18,49 @@ const FlexWrapper = styled(Wrapper)`
   height: 100%;
 `;
 
+const HeaderItemsContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const SignOutButton = styled.button`
+  padding: 7px 12px;
+  margin-right: 10px;
+  background: ${secondary};
+  color: ${primary};
+  border: none;
+  box-shadow: 0 2px 4px -1px ${black};
+  border-radius: 7px;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  &:hover {
+    background: ${primary};
+    color: ${secondary};
+    border: 1px solid ${secondary};
+    box-shadow: none;
+  }
+`;
+
 const Logo = styled.h1`
   color: ${secondary};
   font-family: 'Lobster', cursive;
   text-align: left;
   margin: 0;
+`;
+
+const UserImageContainer = styled.div`
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 30px;
+  flex-shrink: 0;
+`;
+
+const UserImage = styled.img`
+  width: 100%;
+  display: block;
 `;
 
 const Heading = () => {
@@ -37,7 +75,12 @@ const Heading = () => {
     <Header>
       <FlexWrapper>
         <Logo>Chat App</Logo>
-        {user ? <button onClick={handleClick}>Sign Out</button> : null}
+        <HeaderItemsContainer>
+          {user ? <SignOutButton onClick={handleClick}>Sign Out</SignOutButton> : null}
+          <UserImageContainer>
+            <UserImage src={user.photoURL} alt="your profile picture"></UserImage>
+          </UserImageContainer>
+        </HeaderItemsContainer>
       </FlexWrapper>
     </Header>
   )

@@ -87,7 +87,7 @@ const RoomList = () => {
       <Heading />
       <Body>
         <Wrapper>
-          <p>Sup {user.displayName} here's the room list:</p>
+          <p>Chat Rooms:</p>
           <RoomsContainer>
             {
               rooms.map((room) => {
