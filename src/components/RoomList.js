@@ -1,18 +1,66 @@
 import { useAuth } from '../context/authContext';
 import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Heading from './Heading';
+import styled from 'styled-components';
+import { Wrapper, colors } from '../styles/variables';
+
+const { primary, secondary, black, background } = colors;
+
+const Body = styled.body`
+  background: ${background};
+  padding-top: 10px;
+  min-height: calc(100vh - 80px);
+`;
+
+const RoomsContainer = styled.ul`
+  padding: 0;
+  // border: 1px solid red;
+`;
+
+const RoomListItem = styled.li`
+  list-style: none;
+  // border: 1px solid red;
+  display: flex;
+  padding: 10px;
+  margin-bottom: 5px;
+  height: 150px;
+  border: 5px solid ${primary};
+  border-radius: 5px;
+`;
+
+const RoomHeadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  // border: 1px solid blue;
+  flex-basis: 60%;
+`;
+
+const RoomDetailsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 40%;
+  // border: 1px solid blue;
+`;
+
+const RoomLink = styled(Link)`
+  text-decoration: none;
+  margin-bottom: 10px;
+`;
+
+const RoomDescription = styled.p`
+  margin: 0;
+`;
+
+const RoomDetails = styled.p`
+  margin: 0;
+  margin-bottom: 10px;
+`;
 
 const RoomList = () => {
-  const { user, handleSignOut } = useAuth();
+  const { user } = useAuth();
   const [ rooms, setRooms ] = useState([]);
-  const history = useHistory();
-
-  const handleClick = async () => {
-    await handleSignOut();
-    history.push("/");
-  }
 
   useEffect(() => {
     const db = getDatabase();
@@ -37,22 +85,29 @@ const RoomList = () => {
   return (
     <>
       <Heading />
-      <button onClick={handleClick}>Sign Out</button>
-      <p>Sup {user.displayName} here's the room list:</p>
-      <ul>
-        {
-          rooms.map((room) => {
-            return (
-              <li key={room.key}>
-                <Link to={`rooms/${room.key}`}>{room.name}</Link>
-                <p>{room.description}</p>
-                <p>total messages: {room.totalMessages ? room.totalMessages : 0}</p>
-                <p>latest message: {room.latestMessage ? room.latestMessage : 'no messages yet'}</p>
-              </li>
-            )
-          })
-        }
-      </ul>
+      <Body>
+        <Wrapper>
+          <p>Sup {user.displayName} here's the room list:</p>
+          <RoomsContainer>
+            {
+              rooms.map((room) => {
+                return (
+                  <RoomListItem key={room.key}>
+                    <RoomHeadingContainer>
+                      <RoomLink to={`rooms/${room.key}`}>{room.name}</RoomLink>
+                      <RoomDescription>{room.description}</RoomDescription>
+                    </RoomHeadingContainer>
+                    <RoomDetailsContainer>
+                      <RoomDetails>{room.totalMessages ? room.totalMessages : 0} messages</RoomDetails>
+                      <RoomDetails>latest message: {room.latestMessage ? room.latestMessage : 'no messages yet'}</RoomDetails>
+                    </RoomDetailsContainer>
+                  </RoomListItem>
+                )
+              })
+            }
+          </RoomsContainer>
+        </Wrapper>
+      </Body>
     </>
   )
 }
