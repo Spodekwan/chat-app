@@ -76,10 +76,14 @@ const Heading = () => {
       <FlexWrapper>
         <Logo>Chat App</Logo>
         <HeaderItemsContainer>
-          {user ? <SignOutButton onClick={handleClick}>Sign Out</SignOutButton> : null}
-          <UserImageContainer>
-            <UserImage src={user.photoURL} alt="your profile picture"></UserImage>
-          </UserImageContainer>
+          {user 
+          ? <>
+              <SignOutButton onClick={handleClick}>Sign Out</SignOutButton>
+              <UserImageContainer>
+                <UserImage src={user.photoURL} alt="your profile picture"></UserImage>
+              </UserImageContainer>
+            </>
+          : null}
         </HeaderItemsContainer>
       </FlexWrapper>
     </Header>
