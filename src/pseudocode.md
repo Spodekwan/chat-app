@@ -2,14 +2,12 @@
 
 ## To Do
 
-- styling on room list and chat room
+- drop down menu in header
+- user profile page where you can update display name/photo
 - room list
   - different sorting options for the list
-  - some info about each room
-    - total number of messages
-    - most recent message timestamp
-    - room description/topic
   - functionality for creating new rooms
+- replace test chats with better ones
 
 ## MVP
 
