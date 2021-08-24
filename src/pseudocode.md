@@ -3,7 +3,7 @@
 ## To Do
 
 - styling on room list and chat room
-- room list 
+- room list
   - different sorting options for the list
   - some info about each room
     - total number of messages
@@ -24,13 +24,13 @@
 
 - send files?
 - direct messages
-- preset chat rooms
 - create new chat rooms
 - update different picture
 - group messages by timestamp period
 - put google auth into own site instead of redirect
 - change display name
 - change theme colors
+- lazy load only new items
 
 ## Views
 

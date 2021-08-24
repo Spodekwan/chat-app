@@ -32,6 +32,7 @@ const SignOutButton = styled.button`
   box-shadow: 0 2px 4px -1px ${black};
   border-radius: 7px;
   font-weight: bold;
+  font-size: 1.6rem;
   font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   cursor: pointer;
@@ -46,6 +47,7 @@ const SignOutButton = styled.button`
 const Logo = styled.h1`
   color: ${secondary};
   font-family: 'Lobster', cursive;
+  font-size: 4rem;
   text-align: left;
   margin: 0;
 `;

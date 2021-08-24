@@ -33,12 +33,14 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h2`
+  font-size: 3rem;
   margin: 0;
   text-transform: uppercase;
 `;
 
 const BackButton = styled(Link)`
   color: ${secondary};
+  font-size: 2rem;
   padding-right: 10px;
   text-decoration: none;
 `;
@@ -48,6 +50,7 @@ const DescriptionContainer = styled.div`
 `;
 
 const Description = styled.h3`
+  font-size: 2rem;
   margin: 0;
 `;
 
@@ -225,6 +228,12 @@ const ChatRoom = (props) => {
       latestMessage: formatDate(date),
     });
   }
+
+  const handleKeydown = (event) => {
+    if (event.key === 'Enter') {
+      handleNewMessage(event)
+    }
+  }
   
   useEffect(() => {
     const db = getDatabase();
@@ -344,7 +353,14 @@ const ChatRoom = (props) => {
             <MessageForm action="submit" onSubmit={(event) => handleNewMessage(event)}>
               {/* <Wrapper> */}
                 <MessageFormContainer>
-                  <MessageInput type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} required/>
+                  <MessageInput 
+                    name="enterMessage" id="enterMessage" 
+                    onChange={(event) => setNewMessage(event.target.value)} 
+                    onKeyDown={(event) => handleKeydown(event)}
+                    required
+                    type="text" 
+                    value={newMessage} 
+                  />
                   <MessageButton type="submit">
                     <SendIcon icon="paper-plane"/>
                   </MessageButton>

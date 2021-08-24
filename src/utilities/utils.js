@@ -5,7 +5,7 @@ export const formatDate = (date) => {
     const hour = formatHour(date.getHours());
     const minutes = formatMinutes(date.getMinutes());
 
-    return `${month} ${day} AT ${hour.hour}:${minutes} ${hour.ampm}`
+    return `${month} ${day} at ${hour.hour}:${minutes} ${hour.ampm}`
 }
 
 const formatMinutes = (minute) => {

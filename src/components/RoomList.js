@@ -45,17 +45,29 @@ const RoomDetailsContainer = styled.div`
 `;
 
 const RoomLink = styled(Link)`
-  text-decoration: none;
+  color: ${black};
+  font-size: 3rem;
+  font-weight: bold;
   margin-bottom: 10px;
+  text-decoration: none;
+  text-transform: uppercase;
 `;
 
 const RoomDescription = styled.p`
+  font-size: 1.8rem;
   margin: 0;
 `;
 
 const RoomDetails = styled.p`
+  font-size: 1.8rem;
   margin: 0;
   margin-bottom: 10px;
+`;
+
+const PageTitle = styled.h2`
+  color: ${black};
+  font-size: 4rem;
+  margin: 10px 0 20px;
 `;
 
 const RoomList = () => {
@@ -87,7 +99,7 @@ const RoomList = () => {
       <Heading />
       <Body>
         <Wrapper>
-          <p>Chat Rooms:</p>
+          <PageTitle>Chat Rooms:</PageTitle>
           <RoomsContainer>
             {
               rooms.map((room) => {
