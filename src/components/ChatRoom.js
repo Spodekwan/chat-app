@@ -182,6 +182,9 @@ const MessageButton = styled.button`
 const SendIcon = styled(FontAwesomeIcon)`
   color: ${primary};
   transform: rotate(20deg);
+  &:hover {
+    font-size: 4.5rem;
+  }
 `;
 
 const RelativeWrapper = styled(Wrapper)`

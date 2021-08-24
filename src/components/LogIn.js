@@ -6,9 +6,39 @@ import { useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useHistory } from 'react-router';
 import Heading from './Heading';
+import { colors } from '../styles/variables';
+
+const { primary, secondary, black, background } = colors;
+
+const Body = styled.body`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 88px);
+  background: ${background};
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  z-index: -10;
+`;
 
 const Login = styled.button`
   cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 4rem;
+  padding: 20px 60px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 5px 20px ${black};
+  background: ${primary};
+  color: ${secondary};
+  font-weight: bold;
+  text-transform: uppercase;
+  &:hover {
+    background: ${secondary};
+    color: ${primary};
+  }
 `;
 
 const LogIn = () => {
@@ -64,8 +94,9 @@ const LogIn = () => {
   return (
     <>
       <Heading />
-      <p>Hello</p>
-      <Login onClick={handleLogin}>Log In!</Login>
+      <Body>
+        <Login onClick={handleLogin}>Log In</Login>
+      </Body>
     </>
   )
 }
