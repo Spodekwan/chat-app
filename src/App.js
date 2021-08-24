@@ -7,10 +7,11 @@ import ChatRoom from './components/ChatRoom';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './context/authContext';
 import { colors, Wrapper } from './styles/variables';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
+library.add(faPaperPlane);
 const { primary } = colors;
-
-
 
 function App() {
   const { user } = useAuth();

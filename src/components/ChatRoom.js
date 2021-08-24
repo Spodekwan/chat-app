@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { colors, Wrapper } from '../styles/variables';
 import styled from 'styled-components';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const { primary, secondary, black, background } = colors;
 
@@ -51,7 +52,7 @@ const Description = styled.h3`
 `;
 
 const ChatContainer = styled(ScrollToBottom)`
-  height: calc(100vh - 88px - 25px - 25px);
+  height: calc(100vh - 88px - 70px - 25px);
   overflow: scroll;
   position: absolute;
   width: 100%;
@@ -96,10 +97,13 @@ const UserImage = styled.img`
 
 const MessageText = styled.p`
   background: ${black};
-  color: ${secondary};
   border-radius: 10px 10px 10px 0;
-  padding: 10px;
+  color: ${secondary};
+  font-size: 2rem;
+  line-height: 1.4;
   margin-bottom: 10px;
+  overflow-wrap: break-word;
+  padding: 10px;
 `;
 
 const CurrentUserMessageText = styled(MessageText)`
@@ -112,20 +116,24 @@ const MessageAuthor = styled.p`
   line-height: 0;
   font-size: 14px;
   margin-top: 0;
+  overflow-wrap: break-word;
 `;
 
 const CurrentUserMessageAuthor = styled(MessageAuthor)`
   color: transparent;
+  overflow-wrap: break-word;
   width: 0;
 `;
 
 const MessageContent = styled.div`
   max-width: 60%;
+  overflow-wrap: break-word;
 `;
 
 const MessageForm = styled.form`
+  background-color: ${background};
   bottom: 25px;
-  height: 25px;
+  height: 70px;
   left: 0;
   position: fixed;
   width: 100%;
@@ -133,12 +141,44 @@ const MessageForm = styled.form`
 
 const MessageFormContainer = styled.div`
   display: flex;
-  width: 100%;
+  align-items: flex-end;
+  height: 60px;
+  margin: 0 auto;
+  width: 95%;
 `;
 
-const MessageInput = styled.input`
-  flex: 1;
+const MessageInput = styled.textarea`
+  background-color: ${primary};
+  border-radius: 30px;
+  border: none;
+  border-right: 25px solid ${primary};
+  color: ${secondary};
   cursor: text;
+  flex: 1;
+  font-size: 2rem;
+  height: 60px;
+  line-height: 1.4;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 2px 28px;
+  resize: none;
+  scrollbar-color: grey transparent;
+  scrollbar-width: thin;
+`;
+
+const MessageButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  flex-basis: 100px;
+  font-size: 4rem;
+  height: 60px;
+  text-align: center;
+`;
+
+const SendIcon = styled(FontAwesomeIcon)`
+  color: ${primary};
+  transform: rotate(20deg);
 `;
 
 const RelativeWrapper = styled(Wrapper)`
@@ -302,12 +342,14 @@ const ChatRoom = (props) => {
               </ChatContainer>  
             </RelativeWrapper>
             <MessageForm action="submit" onSubmit={(event) => handleNewMessage(event)}>
-              <Wrapper>
+              {/* <Wrapper> */}
                 <MessageFormContainer>
                   <MessageInput type="text" name="enterMessage" id="enterMessage" onChange={(event) => setNewMessage(event.target.value)} value={newMessage} required/>
-                  <button type="submit">Send</button>
+                  <MessageButton type="submit">
+                    <SendIcon icon="paper-plane"/>
+                  </MessageButton>
                 </MessageFormContainer>
-              </Wrapper>
+              {/* </Wrapper> */}
             </MessageForm>
             <RoomFooter />
           </>
