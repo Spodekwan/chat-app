@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Wrapper, colors } from '../styles/variables';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 
 const { primary, secondary, black } = colors;
@@ -21,15 +21,15 @@ const FlexWrapper = styled(Wrapper)`
 const HeaderItemsContainer = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
 `;
 
 const SignOutButton = styled.button`
-  padding: 7px 12px;
-  margin-right: 10px;
-  background: ${secondary};
-  color: ${primary};
+  width: 100%;
+  padding: 15px 10px;
+  background: transparent;
+  color: ${secondary};
   border: none;
-  box-shadow: 0 2px 4px -1px ${black};
   border-radius: 7px;
   font-weight: bold;
   font-size: 1.6rem;
@@ -37,10 +37,7 @@ const SignOutButton = styled.button`
   text-transform: uppercase;
   cursor: pointer;
   &:hover {
-    background: ${primary};
-    color: ${secondary};
-    border: 1px solid ${secondary};
-    box-shadow: none;
+    color: ${primary};
   }
 `;
 
@@ -61,8 +58,51 @@ const UserImageContainer = styled.div`
 `;
 
 const UserImage = styled.img`
+  cursor: pointer;
   width: 100%;
   display: block;
+`;
+
+const DropDownMenu = styled.ul`
+  width: 150px;
+  position: absolute;
+  top: 50px;
+  right: -10px;
+  background: ${primary};
+  list-style: none;
+  padding: 15px 0;
+  border-radius: 7px;
+  border: 2px solid ${secondary};
+  overflow: hidden;
+`;
+
+const DropDownItem = styled.li`
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  background: ${primary};
+  color: ${secondary};
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  &:hover {
+    background: ${secondary};
+    color: ${primary};
+    box-shadow: none;
+    & button {
+      color: ${primary};
+    }
+  }
+`;
+
+const DropDownLink = styled(Link)`
+  padding: 15px 10px;
+  color: ${secondary};
+  text-decoration: none;
+  display: block;
+  &:hover {
+    color: ${primary};
+  }
 `;
 
 const Heading = () => {
@@ -80,10 +120,13 @@ const Heading = () => {
         <HeaderItemsContainer>
           {user 
           ? <>
-              <SignOutButton onClick={handleClick}>Sign Out</SignOutButton>
               <UserImageContainer>
                 <UserImage src={user.photoURL} alt="your profile picture"></UserImage>
               </UserImageContainer>
+              <DropDownMenu>
+                <DropDownItem><DropDownLink>test</DropDownLink></DropDownItem>
+                <DropDownItem><SignOutButton onClick={handleClick}>Sign Out</SignOutButton></DropDownItem>
+              </DropDownMenu>
             </>
           : null}
         </HeaderItemsContainer>

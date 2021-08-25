@@ -214,22 +214,24 @@ const ChatRoom = (props) => {
   const handleNewMessage = (event) => {
     event.preventDefault();
 
-    const db = getDatabase();
-    const messagesRef = ref(db, `Messages`);
-    const date = new Date();
-    push(messagesRef, {
-      content: newMessage,
-      sentBy: user.uid,
-      room: roomId,
-      timestamp: formatDate(date),
-    });
-    setNewMessage('');
-
-    const roomRef = ref(db, `Rooms/${roomId}`);
-    update(roomRef, {
-      totalMessages: (messages.length + 1),
-      latestMessage: formatDate(date),
-    });
+    if (newMessage.length) {
+      const db = getDatabase();
+      const messagesRef = ref(db, `Messages`);
+      const date = new Date();
+      push(messagesRef, {
+        content: newMessage,
+        sentBy: user.uid,
+        room: roomId,
+        timestamp: formatDate(date),
+      });
+      setNewMessage('');
+  
+      const roomRef = ref(db, `Rooms/${roomId}`);
+      update(roomRef, {
+        totalMessages: (messages.length + 1),
+        latestMessage: formatDate(date),
+      });
+    }
   }
 
   const handleKeydown = (event) => {

@@ -8,6 +8,7 @@
   - different sorting options for the list
   - functionality for creating new rooms
 - replace test chats with better ones
+- better error handling for message input
 
 ## MVP
 
