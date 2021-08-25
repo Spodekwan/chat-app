@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, push, get, child, update } from 'firebase/database';
 import { useAuth } from '../context/authContext';
 import { formatDate } from '../utilities/utils';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { colors, Wrapper } from '../styles/variables';
 import styled from 'styled-components';
 import ScrollToBottom from 'react-scroll-to-bottom';
@@ -22,18 +22,35 @@ const RoomHeaderContainer = styled.div`
 const RoomHeader = styled.header`
   color: ${secondary};
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 0;
+  position: relative;
+  width: 100%;
+`;
+
+const FlexWrapper = styled(Wrapper)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+`;
+
+const Logo = styled.h1`
+  color: ${secondary};
+  font-family: 'Lobster', cursive;
+  font-size: 4rem;
+  text-align: left;
+  margin: 0;
 `;
 
 const TitleContainer = styled.div`
   align-items: center;
   display: flex;
-  margin-bottom: 10px;
 `;
 
 const Title = styled.h2`
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 0;
   text-transform: uppercase;
 `;
@@ -45,13 +62,81 @@ const BackButton = styled(Link)`
   text-decoration: none;
 `;
 
-const DescriptionContainer = styled.div`
-  margin-bottom: 5px;
+const SignOutButton = styled.button`
+  width: 100%;
+  padding: 15px 10px;
+  background: transparent;
+  color: ${secondary};
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 1.6rem;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  &:hover {
+    color: ${primary};
+  }
 `;
 
-const Description = styled.h3`
-  font-size: 2rem;
-  margin: 0;
+const ProfileImageContainer = styled.button`
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 30px;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+`;
+
+const ProfileImage = styled.img`
+  cursor: pointer;
+  width: 100%;
+  display: block;
+`;
+
+const DropDownMenu = styled.ul`
+  width: 150px;
+  position: absolute;
+  top: 50px;
+  right: -10px;
+  background: ${primary};
+  list-style: none;
+  padding: 15px 0;
+  border-radius: 7px;
+  border: 2px solid ${secondary};
+  overflow: hidden;
+  display: ${props => props.open ? "block" : "none"};
+  z-index: 10;
+`;
+
+const DropDownItem = styled.li`
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  background: ${primary};
+  color: ${secondary};
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  &:hover {
+    background: ${secondary};
+    color: ${primary};
+    box-shadow: none;
+    & button {
+      color: ${primary};
+    }
+  }
+`;
+
+const DropDownLink = styled(Link)`
+  padding: 15px 10px;
+  color: ${secondary};
+  text-decoration: none;
+  display: block;
+  &:hover {
+    color: ${primary};
+  }
 `;
 
 const ChatContainer = styled(ScrollToBottom)`
@@ -62,6 +147,7 @@ const ChatContainer = styled(ScrollToBottom)`
   background: ${background};
   scrollbar-color: grey transparent;
   scrollbar-width: none;
+  z-index: 1;
 `;
 
 const MessageContainer = styled.div`
@@ -206,10 +292,17 @@ const RoomFooter = styled.div`
 const ChatRoom = (props) => {
   const { match: { params: { roomId } } } = props;
 
-  const { user } = useAuth();
+  const { user, handleSignOut } = useAuth();
+  const history = useHistory();
   const [ room, setRoom ] = useState();
   const [ messages, setMessages ] = useState();
   const [ newMessage, setNewMessage ] = useState('');
+  const [ dropDownOpen, setDropDownOpen ] = useState(false);
+
+  const handleClick = async () => {
+    await handleSignOut();
+    history.push("/");
+  }
 
   const handleNewMessage = (event) => {
     event.preventDefault();
@@ -305,17 +398,22 @@ const ChatRoom = (props) => {
         room
         ? <>
             <RoomHeaderContainer>
-              <Wrapper>
+              <FlexWrapper>
                 <RoomHeader>
                   <TitleContainer>
                     <BackButton to="/rooms">Back</BackButton>
+                    <Logo>Chat App</Logo>
                     <Title>{room.name}</Title>
                   </TitleContainer>
-                  <DescriptionContainer>
-                    <Description>{room.description}</Description>
-                  </DescriptionContainer>
+                  <ProfileImageContainer onClick={() => setDropDownOpen(!dropDownOpen)}>
+                    <ProfileImage src={user.photoURL} alt="your profile picture"></ProfileImage>
+                  </ProfileImageContainer>
+                  <DropDownMenu open={dropDownOpen}>
+                    <DropDownItem><DropDownLink>test</DropDownLink></DropDownItem>
+                    <DropDownItem><SignOutButton onClick={handleClick}>Sign Out</SignOutButton></DropDownItem>
+                  </DropDownMenu>
                 </RoomHeader>
-              </Wrapper>
+              </FlexWrapper>
             </RoomHeaderContainer>
             
             <RelativeWrapper>

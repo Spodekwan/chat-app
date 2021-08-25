@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Wrapper, colors } from '../styles/variables';
 import { useHistory, Link } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
+import { useState } from 'react';
 
 const { primary, secondary, black } = colors;
 
@@ -49,15 +50,17 @@ const Logo = styled.h1`
   margin: 0;
 `;
 
-const UserImageContainer = styled.div`
+const ProfileImageContainer = styled.button`
   width: 50px;
   height: 50px;
   overflow: hidden;
   border-radius: 30px;
   flex-shrink: 0;
+  border: none;
+  padding: 0;
 `;
 
-const UserImage = styled.img`
+const ProfileImage = styled.img`
   cursor: pointer;
   width: 100%;
   display: block;
@@ -74,6 +77,7 @@ const DropDownMenu = styled.ul`
   border-radius: 7px;
   border: 2px solid ${secondary};
   overflow: hidden;
+  display: ${props => props.open ? "block" : "none"};
 `;
 
 const DropDownItem = styled.li`
@@ -113,6 +117,8 @@ const Heading = () => {
     history.push("/");
   }
 
+  const [ dropDownOpen, setDropDownOpen ] = useState(false);
+
   return (
     <Header>
       <FlexWrapper>
@@ -120,10 +126,10 @@ const Heading = () => {
         <HeaderItemsContainer>
           {user 
           ? <>
-              <UserImageContainer>
-                <UserImage src={user.photoURL} alt="your profile picture"></UserImage>
-              </UserImageContainer>
-              <DropDownMenu>
+              <ProfileImageContainer onClick={() => setDropDownOpen(!dropDownOpen)}>
+                <ProfileImage src={user.photoURL} alt="your profile picture"></ProfileImage>
+              </ProfileImageContainer>
+              <DropDownMenu open={dropDownOpen}>
                 <DropDownItem><DropDownLink>test</DropDownLink></DropDownItem>
                 <DropDownItem><SignOutButton onClick={handleClick}>Sign Out</SignOutButton></DropDownItem>
               </DropDownMenu>
