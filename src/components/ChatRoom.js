@@ -14,7 +14,7 @@ const RoomHeaderContainer = styled.div`
   background-color: ${primary};
   height: 88px;
   left: 0;
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
 `;
@@ -22,26 +22,20 @@ const RoomHeaderContainer = styled.div`
 const RoomHeader = styled.header`
   color: ${secondary};
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 10px 0;
   position: relative;
+  height: 88px;
   width: 100%;
 `;
 
-const FlexWrapper = styled(Wrapper)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-`;
-
-const Logo = styled.h1`
+const Title = styled.h1`
   color: ${secondary};
   font-family: 'Lobster', cursive;
   font-size: 4rem;
-  text-align: left;
+  text-align: center;
   margin: 0;
+  width: 100%;
 `;
 
 const TitleContainer = styled.div`
@@ -49,17 +43,15 @@ const TitleContainer = styled.div`
   display: flex;
 `;
 
-const Title = styled.h2`
-  font-size: 2rem;
-  margin: 0;
-  text-transform: uppercase;
-`;
-
 const BackButton = styled(Link)`
   color: ${secondary};
   font-size: 2rem;
   padding-right: 10px;
   text-decoration: none;
+  position: absolute;
+  top: calc(88px / 2 - 14px);
+  left: 2.5%;
+  z-index: 20;
 `;
 
 const SignOutButton = styled.button`
@@ -87,6 +79,9 @@ const ProfileImageContainer = styled.button`
   flex-shrink: 0;
   border: none;
   padding: 0;
+  position: absolute;
+  right: 2.5%;
+  top: calc(88px / 2 - 25px);
 `;
 
 const ProfileImage = styled.img`
@@ -98,8 +93,8 @@ const ProfileImage = styled.img`
 const DropDownMenu = styled.ul`
   width: 150px;
   position: absolute;
-  top: 50px;
-  right: -10px;
+  top: calc(88px - 20px);
+  right: 2.5%;
   background: ${primary};
   list-style: none;
   padding: 15px 0;
@@ -397,23 +392,18 @@ const ChatRoom = (props) => {
       {
         room
         ? <>
+            <BackButton to="/rooms">Back</BackButton>
             <RoomHeaderContainer>
-              <FlexWrapper>
-                <RoomHeader>
-                  <TitleContainer>
-                    <BackButton to="/rooms">Back</BackButton>
-                    <Logo>Chat App</Logo>
-                    <Title>{room.name}</Title>
-                  </TitleContainer>
-                  <ProfileImageContainer onClick={() => setDropDownOpen(!dropDownOpen)}>
-                    <ProfileImage src={user.photoURL} alt="your profile picture"></ProfileImage>
-                  </ProfileImageContainer>
-                  <DropDownMenu open={dropDownOpen}>
-                    <DropDownItem><DropDownLink>test</DropDownLink></DropDownItem>
-                    <DropDownItem><SignOutButton onClick={handleClick}>Sign Out</SignOutButton></DropDownItem>
-                  </DropDownMenu>
-                </RoomHeader>
-              </FlexWrapper>
+              <RoomHeader>
+                <Title>{room.name}</Title>
+                <ProfileImageContainer onClick={() => setDropDownOpen(!dropDownOpen)}>
+                  <ProfileImage src={user.photoURL} alt="your profile picture"></ProfileImage>
+                </ProfileImageContainer>
+                <DropDownMenu open={dropDownOpen}>
+                  <DropDownItem><DropDownLink>test</DropDownLink></DropDownItem>
+                  <DropDownItem><SignOutButton onClick={handleClick}>Sign Out</SignOutButton></DropDownItem>
+                </DropDownMenu>
+              </RoomHeader>
             </RoomHeaderContainer>
             
             <RelativeWrapper>

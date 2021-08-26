@@ -2,9 +2,6 @@
 
 ## To Do
 
-- drop down menu in header
-  - fix overlapping messages and background color
-  - fix positioning in chat room
 - user profile page where you can update display name/photo
 - room list
   - different sorting options for the list
