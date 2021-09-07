@@ -400,7 +400,7 @@ const ChatRoom = (props) => {
                   <ProfileImage src={user.photoURL} alt="your profile picture"></ProfileImage>
                 </ProfileImageContainer>
                 <DropDownMenu open={dropDownOpen}>
-                  <DropDownItem><DropDownLink>test</DropDownLink></DropDownItem>
+                  <DropDownItem><DropDownLink to="/profile">Profile</DropDownLink></DropDownItem>
                   <DropDownItem><SignOutButton onClick={handleClick}>Sign Out</SignOutButton></DropDownItem>
                 </DropDownMenu>
               </RoomHeader>

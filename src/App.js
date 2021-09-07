@@ -9,6 +9,7 @@ import { useAuth } from './context/authContext';
 import { colors, Wrapper } from './styles/variables';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import Profile from './components/Profile';
 
 library.add(faPaperPlane);
 const { primary } = colors;
@@ -25,6 +26,7 @@ function App() {
             <RoomList />
           </PrivateRoute>
           <PrivateRoute path="/rooms/:roomId" authenticated={user} component={ChatRoom} />
+          <PrivateRoute path="/profile" authenticated={user} component={Profile} />
         </Switch>
       </Router>
     </>

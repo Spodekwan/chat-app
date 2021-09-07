@@ -16,12 +16,10 @@ const Body = styled.body`
 
 const RoomsContainer = styled.ul`
   padding: 0;
-  // border: 1px solid red;
 `;
 
 const RoomListItem = styled.li`
   list-style: none;
-  // border: 1px solid red;
   display: flex;
   padding: 10px;
   margin-bottom: 5px;
@@ -33,7 +31,6 @@ const RoomListItem = styled.li`
 const RoomHeadingContainer = styled.div`
   display: flex;
   flex-direction: column;
-  // border: 1px solid blue;
   flex-basis: 60%;
 `;
 
@@ -41,7 +38,6 @@ const RoomDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: 40%;
-  // border: 1px solid blue;
 `;
 
 const RoomLink = styled(Link)`
