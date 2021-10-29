@@ -2,10 +2,9 @@
 
 ## To Do
 
-- user profile page where you can update display name/photo
 - replace test chats with better ones
-- edit readme
 - lazy loading messages
+- user profile page where you can update display name/photo
 - room list
   - different sorting options for the list
   - functionality for creating new rooms
