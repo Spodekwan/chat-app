@@ -112,7 +112,7 @@ const Profile = () => {
             {/* <ProfileImage src={userImageDisplay} alt="your profile picture"></ProfileImage> */}
             <ProfileImage src={user.photoURL} alt="your profile picture"></ProfileImage>
           </ProfileImageContainer>
-          {/* <form action="submit" onSubmit={(event) => handleImageUpdate(event)}>
+          <form action="submit" onSubmit={(event) => handleImageUpdate(event)}>
             <label htmlFor="profileImage">Import profile image from URL: </label>
             <input 
               type="text" 
@@ -123,9 +123,8 @@ const Profile = () => {
               required
             />
             <button type="submit">Update</button>
-          </form> */}
+          </form>
           <DisplayName>Username: {user.displayName}</DisplayName>
-          <p className="tempMessage">Ability to update profile pictures coming soon!</p>
         </Wrapper>
       </ProfileContainer>
     </>
