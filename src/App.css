@@ -227,8 +227,14 @@ html {
 /* ------------------------------ */
 html {
   font-size: 62.5%;
+  scrollbar-color: grey rgba(57, 57, 126, 0.3);
+  scrollbar-width: none;
 }
 
 body {
   font-family: "Open Sans", sans-serif;
+}
+
+.tempMessage {
+  font-size: 2rem;
 }

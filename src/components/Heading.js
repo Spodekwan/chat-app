@@ -141,4 +141,4 @@ const Heading = () => {
   )
 }
 
-export default Heading
+export default Heading;

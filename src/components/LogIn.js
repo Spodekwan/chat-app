@@ -10,7 +10,7 @@ import { colors } from '../styles/variables';
 
 const { primary, secondary, black, background } = colors;
 
-const Body = styled.body`
+const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,9 +94,9 @@ const LogIn = () => {
   return (
     <>
       <Heading />
-      <Body>
+      <LoginContainer>
         <Login onClick={handleLogin}>Log In</Login>
-      </Body>
+      </LoginContainer>
     </>
   )
 }

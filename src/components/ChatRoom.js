@@ -38,20 +38,18 @@ const Title = styled.h1`
   width: 100%;
 `;
 
-const TitleContainer = styled.div`
-  align-items: center;
-  display: flex;
-`;
-
 const BackButton = styled(Link)`
-  color: ${secondary};
+  color: ${primary};
   font-size: 2rem;
-  padding-right: 10px;
+  // padding-right: 10px;
   text-decoration: none;
   position: absolute;
   top: calc(88px / 2 - 14px);
   left: 2.5%;
   z-index: 20;
+  background: ${secondary};
+  padding: 5px 10px 7px;
+  border-radius: 7px;
 `;
 
 const SignOutButton = styled.button`
@@ -376,7 +374,6 @@ const ChatRoom = (props) => {
             })
         }
       }
-      // console.log(newDataArray);
       setMessages(newDataArray);
     }
 
@@ -443,22 +440,20 @@ const ChatRoom = (props) => {
                 }
               </ChatContainer>  
             </RelativeWrapper>
-            <MessageForm action="submit" onSubmit={(event) => handleNewMessage(event)}>
-              {/* <Wrapper> */}
-                <MessageFormContainer>
-                  <MessageInput 
-                    name="enterMessage" id="enterMessage" 
-                    onChange={(event) => setNewMessage(event.target.value)} 
-                    onKeyDown={(event) => handleKeydown(event)}
-                    required
-                    type="text" 
-                    value={newMessage} 
-                  />
-                  <MessageButton type="submit">
-                    <SendIcon icon="paper-plane"/>
-                  </MessageButton>
-                </MessageFormContainer>
-              {/* </Wrapper> */}
+            <MessageForm onSubmit={(event) => handleNewMessage(event)}>
+              <MessageFormContainer>
+                <MessageInput 
+                  name="enterMessage" id="enterMessage" 
+                  onChange={(event) => setNewMessage(event.target.value)} 
+                  onKeyDown={(event) => handleKeydown(event)}
+                  required
+                  type="text" 
+                  value={newMessage} 
+                />
+                <MessageButton type="submit">
+                  <SendIcon icon="paper-plane"/>
+                </MessageButton>
+              </MessageFormContainer>
             </MessageForm>
             <RoomFooter />
           </>

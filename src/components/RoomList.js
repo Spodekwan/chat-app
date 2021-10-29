@@ -8,7 +8,7 @@ import { Wrapper, colors } from '../styles/variables';
 
 const { primary, secondary, black, background } = colors;
 
-const Body = styled.body`
+const Body = styled.div`
   background: ${background};
   padding-top: 10px;
   min-height: calc(100vh - 88px);
@@ -16,6 +16,7 @@ const Body = styled.body`
 
 const RoomsContainer = styled.ul`
   padding: 0;
+  padding-bottom: 100px;
 `;
 
 const RoomListItem = styled.li`
