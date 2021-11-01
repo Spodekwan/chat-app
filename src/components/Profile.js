@@ -1,12 +1,12 @@
 import { useAuth } from '../context/authContext';
-import { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, get, child, update } from 'firebase/database';
-import { Link, useHistory } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
+// import { getDatabase } from 'firebase/database';
+import { Link } from 'react-router-dom';
 import Heading from './Heading';
 import styled from 'styled-components';
 import { Wrapper, colors } from '../styles/variables';
 
-const { primary, secondary, black, background } = colors;
+const { secondary, black, background } = colors;
 
 const ProfileContainer = styled.div`
   background: ${background};
@@ -53,28 +53,28 @@ const DisplayName = styled.p`
 
 const Profile = () => {
   const { user } = useAuth();
-  const history = useHistory();
-  const [imageURL, setImageURL ] = useState('');
+  // const history = useHistory();
+  // const [imageURL, setImageURL ] = useState('');
 
-  const db = getDatabase();
-  const currentUser = ref(db, `Users/${user.uid}`);
+  // const db = getDatabase();
+  // const currentUser = ref(db, `Users/${user.uid}`);
 
-  const handleImageUpdate = (event) => {
-    event.preventDefault();
-    console.log('update!');
+  // const handleImageUpdate = (event) => {
+  //   event.preventDefault();
+  //   console.log('update!');
 
-    if (imageURL.length) {
-      update(currentUser, {
-        photoURL: imageURL,
-      });
+  //   if (imageURL.length) {
+  //     update(currentUser, {
+  //       photoURL: imageURL,
+  //     });
 
-      console.log(user.displayName, user.photoURL);
-      user.photoURL = imageURL;
-      console.log(user.displayName, user.photoURL);
+  //     console.log(user.displayName, user.photoURL);
+  //     user.photoURL = imageURL;
+  //     console.log(user.displayName, user.photoURL);
 
-      setImageURL('');
-    }
-  }
+  //     setImageURL('');
+  //   }
+  // }
 
   return (
     <>

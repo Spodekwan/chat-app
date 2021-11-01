@@ -1,4 +1,4 @@
-import { useAuth } from '../context/authContext';
+// import { useAuth } from '../context/authContext';
 import { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { Link } from 'react-router-dom';
@@ -6,7 +6,7 @@ import Heading from './Heading';
 import styled from 'styled-components';
 import { Wrapper, colors } from '../styles/variables';
 
-const { primary, secondary, black, background } = colors;
+const { primary, black, background } = colors;
 
 const Body = styled.div`
   background: ${background};
@@ -68,7 +68,7 @@ const PageTitle = styled.h2`
 `;
 
 const RoomList = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [ rooms, setRooms ] = useState([]);
 
   useEffect(() => {

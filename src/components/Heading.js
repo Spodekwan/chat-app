@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 import { useState } from 'react';
 
-const { primary, secondary, black } = colors;
+const { primary, secondary } = colors;
 
 const Header = styled.header`
   background: ${primary};

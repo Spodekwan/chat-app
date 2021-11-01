@@ -42,6 +42,7 @@ const Login = styled.button`
 `;
 
 const LogIn = () => {
+  const firebase = firebaseApp;
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
 
@@ -77,7 +78,9 @@ const LogIn = () => {
       }).catch((error) => {
         // ...
       });
-  }, [auth, history, setUser]);
+  }, [auth, history, setUser, user]);
+
+  console.log(firebase);
 
   return (
     <>

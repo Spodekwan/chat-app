@@ -1,18 +1,15 @@
 import './App.css';
-import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from'react-router-dom';
 import LogIn from './components/LogIn';
 import RoomList from './components/RoomList';
 import ChatRoom from './components/ChatRoom';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './context/authContext';
-import { colors, Wrapper } from './styles/variables';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import Profile from './components/Profile';
 
 library.add(faPaperPlane);
-const { primary } = colors;
 
 function App() {
   const { user } = useAuth();
